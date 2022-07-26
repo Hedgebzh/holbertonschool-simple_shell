@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int print_av(int ac, char **av)
+int main(int ac, char **av)
 {
 int count;
 
