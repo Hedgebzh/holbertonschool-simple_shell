@@ -1,13 +1,13 @@
 #include "main.h"
 
-void read_command(char cmd[], char par[])
+void read_command(char cmd[], char *par[])
 {
 	char line[1024];
 	int count = 0, i = 0, j = 0;
-	chararray[100], pch;
+	char *array[100], *pch;
 
 	/* Read one line */
-	for (;;)
+	for ( ; ; )
 	{
 		int c = fgetc(stdin);
 		line[count++] = (char) c;
@@ -44,8 +44,8 @@ void type_prompt()
 	static int first_time = 1;
 	if (first_time) // clear screen for the first time
 	{
-		const char CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
-		write(STDERR_FILENO, CLEAR_SCREEN_ANSI, 12);
+		const char* CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
+		write(STDOUT_FILENO, CLEAR_SCREEN_ANSI, 12);
 		first_time = 0;
 	}
 
@@ -54,7 +54,7 @@ void type_prompt()
 
 int main()
 {
-	char cmd[100], command[100], parameters[20];
+	char cmd[100], command[100], *parameters[20];
 
 	/* environment variable */
 	char *envp[] = { (char *) "PATH=/bin", 0 };
@@ -70,8 +70,8 @@ int main()
 		else
 		{
 			strcpy(cmd, "/bin/");
-			strcpy(cmd, command);
-			execvp(cmd, parameters, envp); // execute command
+			strcat(cmd, command);
+			execve(cmd, parameters, envp); // execute command
 		}
 		if (strcmp(command, "exit") == 0)
 		{
