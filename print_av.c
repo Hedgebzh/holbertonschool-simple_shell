@@ -1,15 +1,13 @@
-#include <stdio.h>
-#include <unistd.h>
+#include "shell.h"
 
-int print_av(int ac, char **av)
+int main(int ac, char **av)
 {
 int count;
-int *ab = av;
 
-void foo(int ac);
-for (count = 0; ab[count] <= ac; count++)
+(void) ac;
+for (count = 1; av[count] != NULL; count++)
 {
-	printf("argument value %d is %d", count, ab[count]);
+	printf("argument value %d is %s\n", count, av[count]);
 }
 return (0);
 }
