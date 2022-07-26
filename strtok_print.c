@@ -1,22 +1,21 @@
 #include "shell.h"
-#include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 
-int main(void)
-{
-	char *buffer;
-	size_t len;
+int main() {
 
-	buffer = malloc(sizeof(char) * 1024);
+	char str[] = "Bonjour je m'appelle William";
+	const char * separators = " ,.-!";
 
-	while(1)
+	char * strToken = strtok ( str, separators );
+	while ( strToken != NULL )
 	{
-	printf("$ ");
-	getline(&buffer, &len, stdin);
-	printf("%s", buffer);
+		printf ( "%s\n", strToken );
+		strToken = strtok ( NULL, separators );
 	}
-}
 
+	return EXIT_SUCCESS;
+}
 
