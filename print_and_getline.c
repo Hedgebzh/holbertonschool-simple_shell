@@ -4,7 +4,7 @@
 #include <readline/history.h>
 
 
-int main(void)
+int print_getline(void)
 {
 	char *buffer;
 	size_t len;
@@ -17,5 +17,6 @@ int main(void)
 	getline(&buffer, &len, stdin);
 	printf("%s", buffer);
 	}
+	return (0);
 }
 
