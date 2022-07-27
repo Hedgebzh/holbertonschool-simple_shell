@@ -14,7 +14,7 @@ int main(void)
 	int status, count;
 	pid_t cpid;
 
-for (count = 0; count <= 4; count++)
+for (count = 0; count <= 4 && cpid != 0; count++)
 {
 	printf("before fork\n");
 	cpid = fork();
