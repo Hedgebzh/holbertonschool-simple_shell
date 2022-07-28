@@ -1,9 +1,13 @@
 #include "main.h"
+#include <unistd.h>
+#include <errno.h>
+#include <string.h>
+
 
 int main(void)
 {
 char *str;
-int kirikou, slip;
+int pid, slip;
 size_t len;
 char *array[2];
 
@@ -15,23 +19,46 @@ str = malloc(sizeof(char) * 1024);
 			str[strlen(str) - 1] = '\0';
 			array[0] = str;
 			array[1] = NULL;
-kirikou = fork();
 
-if (fgets(str, sizeof(str), stdin) == NULL) break;
+			pid_t pid = fork();
 
-if (str[strlen(str)-1] == '\n')
-{
-	str[strlen(str)-1] = '\0';
-}
+			if (fgets(str, sizeof(str), stdin) == NULL) break;
 
-if (kirikou == -1)
-{
-	perror("Boloss corrige-moi ça et vite fait!");
-	return(1);
-}
-if (kirikou == 0)
-	execve (array[0], array, NULL);
+			if (str[strlen(str)-1] == '\n')
+				{
+					str[strlen(str)-1] = '\0';
+				}
+
+			if (strcmp(array[0], "exit") == 0) break;
+
+
+
+			if (pid == -1)
+			{
+				char* error = strerror(errno);
+				printf("fork: %s\n", error)
+				return(1);
+			}
+
+			if (pid == 0)
+			{
+			execve (array[0], array, NULL);
 			wait (&slip);
+			}
 		}
-		return(EXIT_SUCCESS);
+		return(0);
+}
+
+void read_command(char cmd[], char par[])
+{
+	for(int i = 0; i < MAX_NUMBER_OF_PARAMS; i++)
+	{
+		par[i] = strsep(&cmd, " ");
+		if (par[i] == NULL) break;
+	}
+}
+
+int executeCmd(char par[])
+{
+	(void)
 }
