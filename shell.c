@@ -37,5 +37,5 @@ int main(void)
 	}
 	free(cmd);
 
-	return (EXIT_SUCCESS);
+	return (0);
 }
