@@ -29,8 +29,11 @@ int main(void)
 		if (child_p == 0)
 		{
 			execvp(array[0], array);
+			break;
 		}
 		wait(NULL);
 	}
 	free(cmd);
+
+	return (0);
 }
