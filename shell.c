@@ -6,6 +6,8 @@ int main(void)
 	size_t len;
 	int child_p, status, i;
 
+	i = 0;
+	
 	while(1)
 	{
 	getline(&cmd, &len, stdin);
