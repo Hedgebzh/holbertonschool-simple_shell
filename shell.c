@@ -1,39 +1,35 @@
 #include "shell.h"
 
-
 int main(void)
 {
 	char *cmd;
 	size_t len;
-	int child_p;
-	char *array[10];
+	int child_p, status;
+	char *array [2];
 
-	cmd = malloc(sizeof(char) * 1000);
+	cmd = malloc(sizeof(char) * 1024);
 
 	while(1)
 	{
-		getline(&cmd, &len, stdin);
-		if ((strlen(cmd) > 0) && (cmd[strlen(cmd) - 1 == '\n']))
-		{
-			cmd[strlen(cmd) - 1] = '\0';
-		} /* supprimer le retour à la ligne dans le stdin */
+	getline(&buffer, &len, stdin);
+	cmd[strlen(cmd) - 1] = '\0';
+	array[0] = cmd;
+	array[1] = NULL;
 
-		array[0] = cmd;
-		array[1] = NULL;
 
-		child_p = fork();
-		if (child_p == -1)
-		{
-			perror("Error");
-		}
-		if (child_p == 0)
-		{
-			execvp(array[0], array);
-			break;
-		}
-		wait(NULL);
+	child_p = fork();
+	if (child_p == -1)
+	{
+		perror("Error");
+		return (1);
 	}
+	if (child_p == 0)
+	{
+		execve(array[0], array, NULL);
+	}
+	wait(&status);
 	free(cmd);
-
-	return (0);
+	}
+	return (EXIT_SUCCESS);
 }
+
