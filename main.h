@@ -10,8 +10,8 @@
 #include <sys/types.h>
 #include <signal.h>
 
-void read_command(char cmd[], char par[]);
-void type_prompt();
-int main();
-int executeCmd(char par[]);
+void parseCmd(char* cmd, char** params);
+int executeCmd(char** params);
+int main(void);
+
 #endif
