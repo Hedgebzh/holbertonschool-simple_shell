@@ -3,22 +3,24 @@
 
 int main(void)
 {
-	char *buffer;
+	char *cmd;
 	size_t len;
-	int child_p, status;
+	int child_p;
 	char *array[10];
-	char *bin = "/bin/";
 
-	buffer = malloc(sizeof(char) * 1000);
-	bin = malloc(sizeof(char) * 1000);
+	cmd = malloc(sizeof(char) * 1000);
 
 	while(1)
 	{
 		printf("$ ");
-		getline(&buffer, &len, stdin);
-		buffer[strlen(buffer) - 1] = '\0';
-		array[0] = strcat(bin, buffer);
-		printf("%s", array[0]);
+
+		getline(&cmd, &len, stdin);
+		if ((strlen(cmd) > 0) && (cmd[strlen(cmd) - 1 == '\n']))
+		{
+			cmd[strlen(cmd) - 1] = '\0';
+		} /* supprimer le retour à la ligne dans le stdin */
+
+		array[0] = cmd;
 		array[1] = NULL;
 		child_p = fork();
 		if (child_p == -1)
@@ -30,7 +32,9 @@ int main(void)
 		{
 			execve(array[0], array, NULL);
 		}
-		wait(&status);
+		wait(NULL);
 	}
+	free(cmd);
+
 	return (EXIT_SUCCESS);
 }
