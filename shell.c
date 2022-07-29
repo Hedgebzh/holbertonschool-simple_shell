@@ -14,6 +14,7 @@ int main(void)
 	{
 		printf("$ ");
 
+
 		getline(&cmd, &len, stdin);
 		if ((strlen(cmd) > 0) && (cmd[strlen(cmd) - 1 == '\n']))
 		{
@@ -22,15 +23,15 @@ int main(void)
 
 		array[0] = cmd;
 		array[1] = NULL;
+
 		child_p = fork();
 		if (child_p == -1)
 		{
 			perror("Error");
-			return (1);
 		}
 		if (child_p == 0)
 		{
-			execve(array[0], array, NULL);
+			execvp(array[0], array);
 		}
 		wait(NULL);
 	}
