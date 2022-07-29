@@ -1,64 +1,62 @@
-#include "main.h"
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
+#include "shell.h"
 
+#define	MAX_COMMAND_LENGTH 100
+#define	MAX_NUMBER_OF_PARAMS 10
 
 int main(void)
 {
-char *str;
-int pid, slip;
-size_t len;
-char *array[2];
+	char cmd[MAX_COMMAND_LENGTH + 1];
+	char* params[MAX_NUMBER_OF_PARAMS + 1];
 
-str = malloc(sizeof(char) * 1024);
-	while (1)
-		{
-			printf("$ ");
-			getline (&str, &len, stdin);
-			str[strlen(str) - 1] = '\0';
-			array[0] = str;
-			array[1] = NULL;
+	while(1) {
 
-			pid_t pid = fork();
+		if (fgets(cmd, sizeof(cmd), stdin) == NULL) break;
 
-			if (fgets(str, sizeof(str), stdin) == NULL) break;
-
-			if (str[strlen(str)-1] == '\n')
-				{
-					str[strlen(str)-1] = '\0';
-				}
-
-			if (strcmp(array[0], "exit") == 0) break;
-
-
-
-			if (pid == -1)
-			{
-				char* error = strerror(errno);
-				printf("fork: %s\n", error)
-				return(1);
-			}
-
-			if (pid == 0)
-			{
-			execve (array[0], array, NULL);
-			wait (&slip);
-			}
+		if(cmd[strlen(cmd)-1] == '\n') {
+			cmd[strlen(cmd)-1] = '\0';
 		}
-		return(0);
+
+		parseCmd(cmd, params);
+
+		if(strcmp(params[0], "exit") == 0) break;
+
+		if(executeCmd(params) == 0) break;
+	}
+	return(0);
 }
 
-void read_command(char cmd[], char par[])
+void parseCmd(char* cmd, char** params)
+
 {
-	for(int i = 0; i < MAX_NUMBER_OF_PARAMS; i++)
+	int i;
+
+	for(i = 0; i < MAX_NUMBER_OF_PARAMS; i++)
 	{
-		par[i] = strsep(&cmd, " ");
-		if (par[i] == NULL) break;
+		params[i] = strsep(&cmd, " ");
+		if(params[i] == NULL) break;
 	}
 }
 
-int executeCmd(char par[])
+int executeCmd(char** params)
 {
-	(void)
+	pid_t pid = fork();
+
+	if(pid == -1) {
+		perror("fork: error");
+		return(1);
+	}
+
+	else if (pid == 0)
+	{
+		execvp(params[0], params);
+
+		perror("shell: error");
+	}
+
+	else {
+		int childStatus;
+		waitpid(pid, &childStatus, 0);
+		return(1);
+	}
+	return(0);
 }

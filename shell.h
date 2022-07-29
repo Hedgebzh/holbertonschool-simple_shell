@@ -1,17 +1,17 @@
-#ifndef HEADER_SHELL
-#define HEADER_SHELL
-#include <stdarg.h> /* va_arg, va_list, va_end,*/
-#include <stdlib.h> /* malloc */
-#include <unistd.h> /* write */
-#include <stdio.h>
-#include <string.h> // strtok
-#include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#ifndef HEADER_FILE
+#define HEADER_FILE
 
-int print_av(int ac, char **av);
-int print_pid();
-int pid(void);
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <signal.h>
+
+void parseCmd(char* cmd, char** params);
+int executeCmd(char** params);
 int main(void);
 
 #endif
