@@ -1,7 +1,4 @@
-#include "shell.h"
-#include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "exe_concept.h"
 
 
 int print_getline(void)
