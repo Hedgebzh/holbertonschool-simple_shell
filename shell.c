@@ -12,9 +12,6 @@ int main(void)
 
 	while(1)
 	{
-		printf("$ ");
-
-
 		getline(&cmd, &len, stdin);
 		if ((strlen(cmd) > 0) && (cmd[strlen(cmd) - 1 == '\n']))
 		{
@@ -36,6 +33,4 @@ int main(void)
 		wait(NULL);
 	}
 	free(cmd);
-
-	return (0);
 }
