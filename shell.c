@@ -3,8 +3,8 @@
 int main(void)
 {
 	char *cmd, *ptr, *argv[256];
-	size_t len = 1000;
-	int child_p, i, status, childStatus;
+	size_t len;
+	int child_p, i, status;
 
 	while(1)
 	{
@@ -16,6 +16,9 @@ int main(void)
 	if(strcmp("exit", cmd) == 0)
 	break;
 
+
+
+
 	ptr = strtok(cmd, " "); /* divise la commande pour les arguments */
 	i = 0;
 	while(ptr != NULL)
@@ -24,6 +27,10 @@ int main(void)
 		i++;
 		ptr = strtok(NULL, " ");
 	}
+
+
+
+
 
 	if(strcmp("&", argv[i-1]) == 0) /* check pourquoi strcmp */
 	{
@@ -42,19 +49,13 @@ int main(void)
 		perror("Error");
 		return (1);
 	}
-	else if (child_p == 0)
+	if (child_p == 0)
 	{
 		execvp(argv[0], argv);
 		perror("Error");
 	}
-	else
-	{
-		waitpid(child_p, &childStatus, 0);
-		return (1);
-	}
 	wait(&status);
 	}
-
-	exit(0);
+	return (0);
 }
 
