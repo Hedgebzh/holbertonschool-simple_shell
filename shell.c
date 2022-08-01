@@ -4,7 +4,7 @@ int main(void)
 {
 	char *cmd, *ptr, *argv[256];
 	size_t len;
-	int child_p, i, status;
+	int child_p, i;
 
 	while (1)
 	{
@@ -47,7 +47,7 @@ int main(void)
 	{
 		execvp(argv[0], argv);
 	}
-	wait(&status);
+	wait(NULL);
 	}
 	return (0);
 }
