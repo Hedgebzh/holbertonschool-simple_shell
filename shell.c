@@ -6,6 +6,8 @@ int main(void)
 	size_t len;
 	int child_p, i;
 
+	ptr = malloc(sizeof(char) * 1000);
+
 	while (1)
 	{
 		getline(&cmd, &len, stdin); /* recuperation de l'input */
@@ -49,5 +51,6 @@ int main(void)
 	}
 	wait(NULL);
 	}
+	free(ptr);
 	return (0);
 }
