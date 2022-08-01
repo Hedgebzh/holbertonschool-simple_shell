@@ -4,30 +4,30 @@ int main(void)
 {
 	char *cmd, *ptr, *argv[256];
 	size_t len;
-	int child_p, i;
+	int child_p, i, status;
 
-	while(1)
+	while (1)
 	{
-	getline(&cmd, &len, stdin);
-	cmd[strlen(cmd) - 1] = '\0';
+		getline(&cmd, &len, stdin); /* recuperation de l'input */
+		cmd[strlen(cmd) - 1] = '\0'; /* suppresion du retour à la ligne */
 
-	if(strcmp("", cmd) == 0)
+	if (strcmp("", cmd) == 0)
 	continue;
-	if(strcmp("exit", cmd) == 0)
+	if (strcmp("exit", cmd) == 0)
 	break;
 
 	ptr = strtok(cmd, " "); /* divise la commande pour les arguments */
 	i = 0;
-	while(ptr != NULL)
+	while (ptr != NULL)
 	{
 		argv[i] = ptr;
 		i++;
 		ptr = strtok(NULL, " ");
 	}
 
-	if(strcmp("&", argv[i-1]) == 0) /* check pourquoi strcmp */
+	if (!strcmp("&", argv[i - 1])) /* check pourquoi strcmp */
 	{
-	argv[i-1] = NULL;
+	argv[i - 1] = NULL;
 	argv[i] = "&";
 	}
 	else
@@ -38,22 +38,16 @@ int main(void)
 
 	child_p = fork();
 
-	if(child_p == -1)
+	if (child_p == -1)
 	{
 		perror("Error");
+		return (1);
 	}
-	else if (child_p == 0)
+	if (child_p == 0)
 	{
 		execvp(argv[0], argv);
 	}
-	else
-	{
-		if (argv[i] == NULL)
-		{
-			waitpid(child_p, NULL, 0);
-		}
-	}
-	wait(NULL);
+	wait(&status);
 	}
 	return (0);
 }
