@@ -3,15 +3,18 @@
 int main(void)
 {
 	char *cmd, *ptr, *argv[256];
-	size_t len;
+	size_t len = 1000;
 	int child_p, i;
 
 	while(1)
 	{
-	getline(&cmd, &len, stdin);
+	if (getline(&cmd, &len, stdin) == '\0')
+	{
+		break;
+	}
 	cmd[strlen(cmd) - 1] = '\0';
 
-	if(strcmp("", cmd) == 0)
+	if(strcmp("", cmd) == 0) /* si rien dans le terminal on continue, sinon exit on break */
 	continue;
 	if(strcmp("exit", cmd) == 0)
 	break;
@@ -47,6 +50,6 @@ int main(void)
 	}
 	wait(NULL);
 	}
-	return (0);
+	exit (2);
 }
 
