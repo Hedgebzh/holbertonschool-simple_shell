@@ -8,9 +8,7 @@ int main(void)
 
 	while(1)
 	{
-	getline(&cmd, &len, stdin);
-	
-	if (cmd == '\0')
+		getline(&cmd, &len, stdin);
 	{
 		break;
 	}
@@ -52,6 +50,6 @@ int main(void)
 	}
 	wait(NULL);
 	}
-	exit (0);
+	return (0);
 }
 
