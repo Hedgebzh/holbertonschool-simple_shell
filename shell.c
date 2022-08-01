@@ -9,6 +9,7 @@ int main(void)
 	while(1)
 	{
 	getline(&cmd, &len, stdin);
+	
 	if (cmd == '\0')
 	{
 		break;
