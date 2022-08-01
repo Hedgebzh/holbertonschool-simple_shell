@@ -37,10 +37,10 @@ int main(void)
 
 
 	child_p = fork();
-	
+
 	if(child_p == -1)
 	{
-		perror("Error")
+		perror("Error");
 	}
 	else if (child_p == 0)
 	{
