@@ -1,16 +1,17 @@
-#ifndef HEADER_SHELL
-#define HEADER_SHELL
+#ifndef HEADER_FILE
+#define HEADER_FILE
+
 #include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 #include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <signal.h>
 
-
-
+void parseCmd(char* cmd, char** params);
+int executeCmd(char** params);
 int main(void);
 
 #endif
