@@ -1,36 +1,27 @@
 #include "shell.h"
 
-int main(void)
 {
 	char *cmd, *ptr, *argv[256];
 	size_t len;
-	int child_p, i, status;
+	int child_p, i;
 
 	while(1)
 	{
 	getline(&cmd, &len, stdin);
 	cmd[strlen(cmd) - 1] = '\0';
 
-	if(strcmp("", cmd) == 0) /* si rien dans le terminal on continue, sinon exit on break */
+	if(strcmp("", cmd) == 0)
 	continue;
 	if(strcmp("exit", cmd) == 0)
 	break;
-
-
-
 
 	ptr = strtok(cmd, " "); /* divise la commande pour les arguments */
 	i = 0;
 	while(ptr != NULL)
 	{
-		argv[i] = ptr;
-		i++;
+	@@ -20,11 +25,12 @@ int main(void)
 		ptr = strtok(NULL, " ");
 	}
-
-
-
-
 
 	if(strcmp("&", argv[i-1]) == 0) /* check pourquoi strcmp */
 	{
@@ -41,21 +32,11 @@ int main(void)
 	{
 	argv[i] = NULL;
 	}
-
-
-	child_p = fork();
-	if (child_p == -1)
-	{
-		perror("Error");
-		return (1);
-	}
-	if (child_p == 0)
+	@@ -39,7 +45,7 @@ int main(void)
 	{
 		execvp(argv[0], argv);
-		perror("Error");
 	}
-	wait(&status);
+	wait(NULL);
 	}
 	return (0);
 }
-
