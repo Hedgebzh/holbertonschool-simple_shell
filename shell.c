@@ -1,5 +1,6 @@
 #include "shell.h"
 
+int main(void)
 {
 	char *cmd, *ptr, *argv[256];
 	size_t len;
@@ -19,7 +20,8 @@
 	i = 0;
 	while(ptr != NULL)
 	{
-	@@ -20,11 +25,12 @@ int main(void)
+		argv[i] = ptr;
+		i++;
 		ptr = strtok(NULL, " ");
 	}
 
@@ -32,9 +34,24 @@
 	{
 	argv[i] = NULL;
 	}
-	@@ -39,7 +45,7 @@ int main(void)
+
+
+	child_p = fork();
+	
+	if(child_p == -1)
+	{
+		perror("Error")
+	}
+	else if (child_p == 0)
 	{
 		execvp(argv[0], argv);
+	}
+	else
+	{
+		if (argv[i] == NULL)
+		{
+			waitpid(child_p, NULL, 0);
+		}
 	}
 	wait(NULL);
 	}
