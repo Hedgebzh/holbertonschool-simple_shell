@@ -4,16 +4,11 @@ int main(void)
 {
 	char *cmd, *ptr, *argv[256];
 	size_t len = 1000;
-	int child_p, i;
+	int child_p, i, status, childStatus;
 
 	while(1)
 	{
 	getline(&cmd, &len, stdin);
-
-	if (cmd == NULL)
-	{
-		break;
-	}
 	cmd[strlen(cmd) - 1] = '\0';
 
 	if(strcmp("", cmd) == 0) /* si rien dans le terminal on continue, sinon exit on break */
@@ -40,18 +35,26 @@ int main(void)
 	argv[i] = NULL;
 	}
 
+
 	child_p = fork();
 	if (child_p == -1)
 	{
 		perror("Error");
 		return (1);
 	}
-	if (child_p == 0)
+	else if (child_p == 0)
 	{
 		execvp(argv[0], argv);
+		perror("Error");
 	}
-	wait(NULL);
+	else
+	{
+		waitpid(child_p, &childStatus, 0);
+		return (1);
 	}
-	exit (0);
+	wait(&status);
+	}
+
+	exit(0);
 }
 

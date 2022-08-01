@@ -8,10 +8,7 @@ int main(void)
 
 	while(1)
 	{
-		getline(&cmd, &len, stdin);
-	{
-		break;
-	}
+	getline(&cmd, &len, stdin);
 	cmd[strlen(cmd) - 1] = '\0';
 
 	if(strcmp("", cmd) == 0) /* si rien dans le terminal on continue, sinon exit on break */
