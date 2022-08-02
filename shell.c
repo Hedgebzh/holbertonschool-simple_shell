@@ -40,6 +40,7 @@ void parseCmd(char* cmd, char** params)
 int executeCmd(char** params)
 {
 	pid_t pid = fork();
+	int status;
 
 	if(pid == -1) {
 		perror("fork: error");
@@ -54,9 +55,7 @@ int executeCmd(char** params)
 	}
 
 	else {
-		int childStatus;
-		waitpid(pid, &childStatus, 0);
-		return(1);
+		wait(&status);
 	}
 	return(0);
 }
