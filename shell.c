@@ -27,17 +27,6 @@ int main(void)
 		ptr = strtok(NULL, " ");
 	}
 
-	if (!strcmp("&", argv[i - 1])) /* check pourquoi strcmp */
-	{
-	argv[i - 1] = NULL;
-	argv[i] = "&";
-	}
-	else
-	{
-	argv[i] = NULL;
-	}
-
-
 	child_p = fork();
 
 	if (child_p == -1)
