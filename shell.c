@@ -1,61 +1,53 @@
 #include "shell.h"
 
-#define	MAX_COMMAND_LENGTH 1000
-#define	MAX_NUMBER_OF_PARAMS 200
-
 int main(void)
 {
-	char cmd[MAX_COMMAND_LENGTH + 1];
-	char* params[MAX_NUMBER_OF_PARAMS + 1];
+	char *cmd, *ptr, *argv[256];
+	size_t len;
+	int child_p, i;
 
-	while(1) {
-
-		if (fgets(cmd, sizeof(cmd), stdin) == NULL) break;
-
-		if(cmd[strlen(cmd)-1] == '\n') {
-			cmd[strlen(cmd)-1] = '\0';
-		}
-
-		parseCmd(cmd, params);
-
-		if(strcmp(params[0], "exit") == 0) break;
-
-		if(executeCmd(params) == 0) break;
-	}
-	return(0);
-}
-
-void parseCmd(char* cmd, char** params)
-
-{
-	int i;
-
-	for(i = 0; i < MAX_NUMBER_OF_PARAMS; i++)
+	while (1)
 	{
-		params[i] = strsep(&cmd, " ");
-		if(params[i] == NULL) break;
-	}
-}
+		getline(&cmd, &len, stdin); /* recuperation de l'input */
+		cmd[strlen(cmd) - 1] = '\0'; /* suppresion du retour à la ligne */
 
-int executeCmd(char** params)
-{
-	pid_t pid = fork();
-	int status;
+	if (strcmp("", cmd) == 0)
+	continue;
+	if (strcmp("exit", cmd) == 0)
+	break;
 
-	if(pid == -1) {
-		perror("fork: error");
-		return(1);
-	}
-
-	else if (pid == 0)
+	ptr = strtok(cmd, " "); /* divise la commande pour les arguments */
+	i = 0;
+	while (ptr != NULL)
 	{
-		execvp(params[0], params);
-
-		perror("shell: error");
+		argv[i] = ptr;
+		i++;
+		ptr = strtok(NULL, " ");
 	}
 
-	else {
-		wait(&status);
+	if (!strcmp("&", argv[i - 1])) /* check pourquoi strcmp */
+	{
+	argv[i - 1] = NULL;
+	argv[i] = "&";
 	}
-	return(0);
+	else
+	{
+	argv[i] = NULL;
+	}
+
+
+	child_p = fork();
+
+	if (child_p == -1)
+	{
+		perror("Error");
+		return (1);
+	}
+	if (child_p == 0)
+	{
+		execvp(argv[0], argv);
+	}
+	wait(NULL);
+	}
+	return (0);
 }
