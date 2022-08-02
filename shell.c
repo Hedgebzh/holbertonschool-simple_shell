@@ -6,8 +6,6 @@ int main(void)
 	size_t len;
 	int child_p, i;
 
-	ptr = malloc(sizeof(char) * 1000);
-
 	while (1)
 	{
 		getline(&cmd, &len, stdin); /* recuperation de l'input */
@@ -16,7 +14,7 @@ int main(void)
 	if (strcmp("", cmd) == 0)
 	continue;
 	if (strcmp("exit", cmd) == 0)
-	break;
+	exit (2);
 
 	ptr = strtok(cmd, " "); /* divise la commande pour les arguments */
 	i = 0;
@@ -48,9 +46,11 @@ int main(void)
 	if (child_p == 0)
 	{
 		execvp(argv[0], argv);
+		exit (0);
 	}
 	wait(NULL);
 	}
+	free(cmd);
 	free(ptr);
-	return (0);
+	exit(EXIT_SUCCESS);
 }
