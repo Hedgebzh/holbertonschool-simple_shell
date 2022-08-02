@@ -18,7 +18,7 @@ int main(void)
 
 		parseCmd(cmd, params);
 
-		if(strcmp(params[0], "exit") == 0) break;
+		if(strcmp(params[0], "exit") == 0) exit (2);
 
 		if(executeCmd(params) == 0) break;
 	}
