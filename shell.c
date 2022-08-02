@@ -4,7 +4,8 @@ int main(void)
 {
 	char *cmd, *ptr, *argv[1000];
 	size_t len;
-	int child_p, i;
+	pid_t child_p;
+	int i, status;
 
 	while (1)
 	{
@@ -35,11 +36,14 @@ int main(void)
 			perror("Error");
 			return (1);
 		}
-		if (child_p == 0)
+		else if (child_p == 0)
 		{
 			execvp(argv[0], argv);
 		}
-		wait(NULL);
+		else
+		{
+		wait(&status);
+		}
 	}
 	free(ptr);
 
