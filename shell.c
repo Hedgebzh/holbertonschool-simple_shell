@@ -6,7 +6,7 @@
 int main(void)
 {
 	char cmd[MAX_COMMAND_LENGTH + 1];
-	char* params[MAX_NUMBER_OF_PARAMS + 1];
+	char *params[MAX_NUMBER_OF_PARAMS + 1];
 
 	while(1) 
 	{
@@ -27,7 +27,7 @@ int main(void)
 	return(0);
 }
 
-void parseCmd(char* cmd, char** params)
+void parseCmd(char *cmd, char **params)
 
 {
 	int i;
@@ -39,7 +39,7 @@ void parseCmd(char* cmd, char** params)
 	}
 }
 
-int executeCmd(char** params)
+int executeCmd(char **params)
 {
 	pid_t pid = fork();
 
@@ -56,7 +56,8 @@ int executeCmd(char** params)
 		perror("shell: error");
 	}
 
-	else {
+	else 
+	{
 		int childStatus;
 		waitpid(pid, &childStatus, 0);
 		return(1);
