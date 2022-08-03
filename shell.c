@@ -43,8 +43,8 @@ int main(void)
 		}
 		wait(NULL);
 	}
-	free(cmd);
 	free(argv);
+
 
 
 	exit(EXIT_SUCCESS);
