@@ -9,14 +9,6 @@ int main(void)
 	pid_t child_pid;
 
 	char **argv = malloc(sizeof(char *) * 1000);
-=======
-	char *cmd, *ptr, *argv[1000];
-	size_t len;
-	pid_t child_p;
-	int i;
-
-	cmd = malloc(sizeof(char *) * 1000);
->>>>>>> 82e83a59fda9b35a8ff6daa9563118a90837af3a
 
 	while (1)
 	{
@@ -46,7 +38,6 @@ int main(void)
 		{
 			perror("Error");
 		}
-<<<<<<< HEAD
 		if (child_pid == 0)
 		{
 			execve(argv[0], argv, NULL);
@@ -54,15 +45,7 @@ int main(void)
 		wait(NULL);
 	}
 	free(argv);
-=======
-		if (child_p == 0)
-		{
-			execvp(argv[0], argv);
-		}
-		wait(NULL);
-	}
-	free(cmd);
->>>>>>> 82e83a59fda9b35a8ff6daa9563118a90837af3a
+
 
 	exit(EXIT_SUCCESS);
 }
