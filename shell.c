@@ -2,7 +2,6 @@
 
 int main(void)
 {
-<<<<<<< HEAD
 	char *cmd, *token;
 	size_t len = 0;
 	int i = 0;
