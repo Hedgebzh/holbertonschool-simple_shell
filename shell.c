@@ -5,9 +5,7 @@
 
 /**
  * main - simple shell
- *
- * @cmd: char
- * @params: char
+ * Return: void
  */
 
 int main(void)
@@ -62,6 +60,7 @@ void parseCmd(char *cmd, char **params)
  * executeCmd - execute command
  *
  * @params: char
+ * Return: 0
  */
 
 int executeCmd(char **params)
