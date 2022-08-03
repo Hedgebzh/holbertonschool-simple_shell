@@ -1,26 +1,26 @@
-#include "shell.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <signal.h>
 
 int main(void)
 {
 	char *cmd, *token;
 	size_t len = 0;
+	ssize_t input;
 	int i = 0;
 	pid_t child_pid;
 
 	char **argv = malloc(sizeof(char *) * 1000);
 
-	while (1)
+	while ((input = getline(&cmd, &len, stdin)) != -1)
 	{
-		if (getline(&cmd, &len, stdin) == '\0')
-		break;
 
 		cmd[strlen(cmd) - 1] = '\0';
-
-		if (strcmp("", cmd) == 0)
-		continue;
-
-		if (strcmp("exit", cmd) == 0)
-		break;
 
 		token = strtok(cmd, " ");
 
