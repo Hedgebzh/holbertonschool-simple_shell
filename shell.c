@@ -5,9 +5,8 @@ int main(void)
 {
 	char *cmd, *token;
 	size_t len = 0;
-	int i = 0;
+	int i;
 	pid_t child_pid;
-	extern char **environ;
 
 	char **argv = malloc(sizeof(char *) * 1000);
 
@@ -22,6 +21,7 @@ int main(void)
 
 		while (token != NULL)
 		{
+			i = 0;
 			argv[i] = token;
 			i++;
 			token = strtok (NULL, " ");
@@ -45,3 +45,4 @@ int main(void)
 	free(argv);
 
 	exit(EXIT_SUCCESS);
+}
