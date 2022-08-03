@@ -39,8 +39,8 @@ while 1
 /**
  * parseCmd - parse command
  *
- * @cmd: char
- * @params: char
+ * @cmd: command on the prompt
+ * @params: parameters of the command
  */
 
 void parseCmd(char *cmd, char **params)
@@ -59,7 +59,7 @@ void parseCmd(char *cmd, char **params)
 /**
  * executeCmd - execute command
  *
- * @params: char
+ * @params: parameters
  * Return: 0
  */
 
