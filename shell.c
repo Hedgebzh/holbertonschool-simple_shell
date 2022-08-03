@@ -15,9 +15,9 @@ while (1)
 			(fgets(cmd, sizeof(cmd), stdin) == NULL) break;
 
 		if
-			(cmd[strlen(cmd)-1] == '\n')
+			(cmd[strlen(cmd) - 1] == '\n')
 		{
-			cmd[strlen(cmd)-1] = '\0';
+			cmd[strlen(cmd) - 1] = '\0';
 		}
 
 		parseCmd(cmd, params);
@@ -28,7 +28,7 @@ while (1)
 		if
 			(executeCmd(params) == 0) break;
 	}
-	return(0);
+	return (0);
 }
 
 void parseCmd(char *cmd, char **params)
@@ -49,24 +49,25 @@ int executeCmd(char **params)
 	pid_t pid = fork();
 
 if
-	(pid == -1) {
-		perror ("fork: error");
+	(pid == - 1) {
+		perror("fork: error");
 		return (1);
 	}
 
 else if
 	(pid == 0)
 	{
-		execvp (params[0], params);
+		execvp(params[0], params);
 
-		perror ("shell: error");
+		perror("shell: error");
 	}
 
 else
 	{
 		int childStatus;
 		waitpid (pid, &childStatus, 0);
+	
 		return (1);
 	}
-	return(0);
+	return (0);
 }
