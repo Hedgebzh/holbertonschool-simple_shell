@@ -3,6 +3,13 @@
 #define	MAX_COMMAND_LENGTH 1000
 #define	MAX_NUMBER_OF_PARAMS 100
 
+/**
+ * main - simple shell
+ *
+ * @cmd: char
+ * @params: char
+ */
+
 int main(void)
 {
 	char cmd[MAX_COMMAND_LENGTH + 1];
@@ -31,6 +38,13 @@ while (1)
 	return (0);
 }
 
+/**
+ * parseCmd - parse command
+ *
+ * @cmd: char
+ * @params: char
+ */
+
 void parseCmd(char *cmd, char **params)
 
 {
@@ -44,12 +58,19 @@ void parseCmd(char *cmd, char **params)
 	}
 }
 
+/**
+ * executeCmd - execute command
+ *
+ * @params: char
+ */
+
 int executeCmd(char **params)
 {
 	pid_t pid = fork();
 
 if
-	(pid == - 1) {
+	(pid == - 1) 
+{
 		perror("fork: error");
 		return (1);
 	}
@@ -65,6 +86,7 @@ else if
 else
 	{
 		int childStatus;
+
 		waitpid (pid, &childStatus, 0);
 	
 		return (1);
