@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <signal.h>
 
 int main(void)
 {
