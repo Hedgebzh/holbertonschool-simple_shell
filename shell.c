@@ -68,7 +68,7 @@ int executeCmd(char **params)
 	pid_t pid = fork();
 
 if
-	(pid == - 1) 
+	(pid == -1)
 {
 		perror("fork: error");
 		return (1);
@@ -86,8 +86,8 @@ else
 	{
 		int childStatus;
 
-		waitpid (pid, &childStatus, 0);
-	
+		waitpid(pid, &childStatus, 0);
+
 		return (1);
 	}
 	return (0);
