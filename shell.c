@@ -2,17 +2,19 @@
 
 int main(void)
 {
-	char *cmd, *ptr, *argv[1000];
-	size_t len;
-	pid_t child_p;
-	int i, status;
+	char *cmd, *token;
+	size_t len = 0;
+	int i = 0;
+	pid_t child_pid;
+
+	char **argv = malloc(sizeof(char *) * 1000);
 
 	while (1)
 	{
 		if (getline(&cmd, &len, stdin) == '\0')
-		break; /* recuperation de l'input */
+		break;
 
-		cmd[strlen(cmd) - 1] = '\0'; /* suppresion du retour à la ligne */
+		cmd[strlen(cmd) - 1] = '\0';
 
 		if (strcmp("", cmd) == 0)
 		continue;
@@ -20,32 +22,30 @@ int main(void)
 		if (strcmp("exit", cmd) == 0)
 		break;
 
-		ptr = strtok(cmd, " "); /* divise la commande pour les arguments */
-		i = 0;
-		while (ptr != NULL)
+		token = strtok(cmd, " ");
+
+		while (token != NULL)
 		{
-			argv[i] = ptr;
+			argv[i] = token;
 			i++;
-			ptr = strtok(NULL, " ");
+			token = strtok (NULL, " ");
 		}
 
-		child_p = fork();
+		child_pid = fork();
 
-		if (child_p == -1)
+		if (child_pid == -1)
 		{
 			perror("Error");
-			return (1);
 		}
-		else if (child_p == 0)
+		if (child_pid == 0)
 		{
-			execvp(argv[0], argv);
+			execve(argv[0], argv, NULL);
 		}
-		else
-		{
-		wait(&status);
-		}
+		wait(NULL);
 	}
-	free(ptr);
+	free(argv);
 
 	exit(EXIT_SUCCESS);
 }
+
+
