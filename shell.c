@@ -8,11 +8,13 @@ int main(void)
 	char cmd[MAX_COMMAND_LENGTH + 1];
 	char* params[MAX_NUMBER_OF_PARAMS + 1];
 
-	while(1) {
+	while(1) 
+	{
 
 		if (fgets(cmd, sizeof(cmd), stdin) == NULL) break;
 
-		if(cmd[strlen(cmd)-1] == '\n') {
+		if(cmd[strlen(cmd)-1] == '\n') 
+		{
 			cmd[strlen(cmd)-1] = '\0';
 		}
 
@@ -41,7 +43,8 @@ int executeCmd(char** params)
 {
 	pid_t pid = fork();
 
-	if(pid == -1) {
+	if(pid == -1) 
+	{
 		perror("fork: error");
 		return(1);
 	}
