@@ -1,51 +1,62 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include "shell.h"
+
+#define	MAX_COMMAND_LENGTH 1000
+#define	MAX_NUMBER_OF_PARAMS 100
 
 int main(void)
 {
-	char *cmd, *token;
-	size_t len = 0;
-	int i;
-	pid_t child_pid;
+	char cmd[MAX_COMMAND_LENGTH + 1];
+	char* params[MAX_NUMBER_OF_PARAMS + 1];
 
-	char **argv = malloc(sizeof(char *) * 1000);
+	while(1) {
 
-	while (1)
-	{
-		if (getline(&cmd, &len, stdin) == '\0')
-		break;
+		if (fgets(cmd, sizeof(cmd), stdin) == NULL) break;
 
-		cmd[strlen(cmd) - 1] = '\0';
-
-		token = strtok(cmd, " ");
-
-		i = 0;
-		while (token != NULL)
-		{
-			argv[i] = token;
-			i++;
-			token = strtok (NULL, " ");
+		if(cmd[strlen(cmd)-1] == '\n') {
+			cmd[strlen(cmd)-1] = '\0';
 		}
 
-		child_pid = fork();
+		parseCmd(cmd, params);
 
-		if (child_pid == -1)
-		{
-			perror("Error");
-		}
-		else if (child_pid == 0)
-		{
-			execve(argv[0], argv, NULL);
-		}
-		else
-		{
-		wait(NULL);
-		}
+		if(strcmp(params[0], "exit") == 0) break;
+
+		if(executeCmd(params) == 0) break;
 	}
-	free(argv);
+	return(0);
+}
 
-	exit(EXIT_SUCCESS);
+void parseCmd(char* cmd, char** params)
+
+{
+	int i;
+
+	for(i = 0; i < MAX_NUMBER_OF_PARAMS; i++)
+	{
+		params[i] = strsep(&cmd, " ");
+		if(params[i] == NULL) break;
+	}
+}
+
+int executeCmd(char** params)
+{
+	pid_t pid = fork();
+
+	if(pid == -1) {
+		perror("fork: error");
+		return(1);
+	}
+
+	else if (pid == 0)
+	{
+		execvp(params[0], params);
+
+		perror("shell: error");
+	}
+
+	else {
+		int childStatus;
+		waitpid(pid, &childStatus, 0);
+		return(1);
+	}
+	return(0);
 }
