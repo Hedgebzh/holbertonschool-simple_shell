@@ -33,7 +33,7 @@ void parseCmd(char* cmd, char** params)
 	for(i = 0; i < MAX_NUMBER_OF_PARAMS; i++)
 	{
 		params[i] = strsep(&cmd, " ");
-		if(params[i] == NULL) break;
+		if(params[i] == NULL) continue;
 	}
 }
 
