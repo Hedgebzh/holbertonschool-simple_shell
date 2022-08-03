@@ -1,7 +1,7 @@
 #include "shell.h"
 
 #define	MAX_COMMAND_LENGTH 1000
-#define	MAX_NUMBER_OF_PARAMS 100
+#define	MAX_NUMBER_OF_PARAMS 1000
 
 int main(void)
 {
