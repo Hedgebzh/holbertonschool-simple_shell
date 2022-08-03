@@ -1,5 +1,10 @@
-
-#include "shell.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <signal.h>
 
 int main(void)
 {
@@ -19,9 +24,9 @@ int main(void)
 
 		token = strtok(cmd, " ");
 
+		i = 0;
 		while (token != NULL)
 		{
-			i = 0;
 			argv[i] = token;
 			i++;
 			token = strtok (NULL, " ");
