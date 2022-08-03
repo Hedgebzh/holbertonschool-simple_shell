@@ -1,24 +1,20 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <signal.h>
+
+#include "shell.h"
 
 int main(void)
 {
 	char *cmd, *token;
 	size_t len = 0;
-	ssize_t input;
 	int i = 0;
 	pid_t child_pid;
+	extern char **environ;
 
 	char **argv = malloc(sizeof(char *) * 1000);
 
-	while ((input = getline(&cmd, &len, stdin)) != -1)
+	while (1)
 	{
+		if (getline(&cmd, &len, stdin) == '\0')
+		break;
 
 		cmd[strlen(cmd) - 1] = '\0';
 
@@ -37,17 +33,15 @@ int main(void)
 		{
 			perror("Error");
 		}
-		if (child_pid == 0)
+		else if (child_pid == 0)
 		{
 			execve(argv[0], argv, NULL);
 		}
+		else
+		{
 		wait(NULL);
+		}
 	}
 	free(argv);
 
-
-
 	exit(EXIT_SUCCESS);
-}
-
-
