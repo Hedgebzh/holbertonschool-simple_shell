@@ -13,7 +13,7 @@ int main(void)
 	char cmd[MAX_COMMAND_LENGTH + 1];
 	char *params[MAX_NUMBER_OF_PARAMS + 1];
 
-	while (1)
+		while (1)
 		{
 
 			if
