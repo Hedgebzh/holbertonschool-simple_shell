@@ -59,7 +59,7 @@ void parseCmd(char *cmd, char **params)
 /**
  * executeCmd - execute command
  *
- * @params: parameters of command
+ * @params: parameters of the command
  * Return: 0 on success
  */
 
