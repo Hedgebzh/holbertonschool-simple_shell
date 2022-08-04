@@ -1,0 +1,97 @@
+.TH SIMPLE_SHELL 1 "5 August 2022" "1.0" "custom man page"
+.SH NAME
+.B Simple Shell
+- command line interpreter
+.SH SYNOPSIS
+.B Simple Shell
+.SH DESCRIPTION
+Simple shell is a version of a command line interpreter that executes commands read from the standard input. It's functionality is limited to certain shell builtin functions found in the environmental variable
+.I PATH.
+It does not handle piping, redirection and more extra functions.
+.SS Invocation
+An
+.I interactive
+simple shell can be started by typing ./hsh. Meanwhile, a
+.I non-interactive
+simple shell can also be started via a pipe (e.g. echo "/bin/ls" | ./hsh).
+.SS Command Execution
+After a command has been split into words, if it results in a simple command and an optional list of arguments, the following actions are taken.
+.sp
+If the command name contains no slashes, the shell attempts to locate it. If there exists a shell function by that name that function is executed. If the name does not match a function, the shell searches for it in the list of shell builtins. If a match is found, that builtin is executed.
+.sp
+If the name is neither a shell function or a builtin, and contains no slashes, the simple shell searches each element of the PATH for a directory containing an executable file with that name. If the search is unsuccessful, the simple shell prints an error message "Error: File or description not found."
+.SS Sample Functions
+.sp
+echo
+.I [arguments]
+      prints to standard output the argument(s) given and prints a newline
+.sp
+ls
+.I [[flags]...[arguments]]
+      lists files in the current directory according to the flags given by user
+.sp
+pwd
+      prints working directories
+.sp
+whereis
+.I [command]
+      prints to standard output which directory the function or shell builtin can be found
+.sp
+whoami
+.I [command]
+      displays the username of the current user
+.SS Shell Builtin Commands
+.sp
+env
+      prints environmental variables
+.sp
+exit
+      exits out of simple shell and returns to user's original shell
+
+.SH EXAMPLE
+To
+.I invoke
+simple shell:
+.sp
+.RS
+(your_terminal)$ ./hsh
+.RE
+.RS
+.I $
+.RE
+.sp
+Sample Usage:
+.sp
+.RS
+.I $
+echo "Hello School!"
+.RE
+.RS
+.I Hello School!
+.RE
+.RS
+.I $
+ls -l /tmp
+.RE
+.RS
+.I total 4
+.RE
+.RS
+.I drwx------ 2 vagrant vagrant 4096 Mar 19 20:22 ssh-xTKqci
+.RE
+.sp
+To leave simple shell and return to your terminal:
+.sp
+.RS
+.I $
+exit
+.RE
+.RS
+(your_terminal)$
+.RE
+.SH BUGS
+Bugs...
+.SH SEE ALSO
+.I bash(1), sh(1), ksh(1), csh(1)
+.SH AUTHORS
+William Granger & Axel Goré
