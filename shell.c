@@ -4,7 +4,7 @@
 #define	MAX_NUMBER_OF_PARAMS 100
 
 /**
- * main - simple shell
+ * main - executes a simple shell
  * Return: 0 on success
  */
 
