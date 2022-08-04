@@ -79,7 +79,7 @@ else if
 	{
 		execvp(params[0], params);
 
-		perror("shell: error");
+		perror("Error: File or description not found.");
 	}
 
 else
