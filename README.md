@@ -4,6 +4,11 @@ C - Simple Shell
 
 For this project we made our own simple shell (linux command line interpreter).
 
+<p align="center" width="100%">
+    <img width="33%" src="http://image.noelshack.com/fichiers/2022/31/4/1659649554-diagramme-sans-nom-drawio-3.png">
+</p>
+
+
 ## Requirements
 
 * Compilation command: `gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh`
