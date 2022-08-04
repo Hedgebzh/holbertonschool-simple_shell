@@ -13,17 +13,17 @@ int main(void)
 	char cmd[MAX_COMMAND_LENGTH + 1];
 	char *params[MAX_NUMBER_OF_PARAMS + 1];
 
-while (1)
-	{
-
-		if
-			(fgets(cmd, sizeof(cmd), stdin) == NULL) break;
-
-		if
-			(cmd[strlen(cmd) - 1] == '\n')
+	while (1)
 		{
-			cmd[strlen(cmd) - 1] = '\0';
-		}
+
+			if
+				(fgets(cmd, sizeof(cmd), stdin) == NULL) break;
+
+			if
+				(cmd[strlen(cmd) - 1] == '\n')
+			{
+				cmd[strlen(cmd) - 1] = '\0';
+			}
 
 		parseCmd(cmd, params);
 
