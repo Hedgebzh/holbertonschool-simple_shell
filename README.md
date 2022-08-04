@@ -31,7 +31,7 @@ For this project we made our own simple shell (linux command line interpreter).
 > Our shell currently handles the executions of executables found in the PATH, with or without their full paths (/bin/ls or just ls). Sample commands that our shell supports include ls, mkdir, pwd, echo, whoami, whereis, etc.
 
 
-### Builtins
+### Built-Ins
 
 * `exit` exits shell (Usage: `exit`)
 * `env` prints environmental variables (Usage: `env`)
