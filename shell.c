@@ -59,8 +59,8 @@ void parseCmd(char *cmd, char **params)
 /**
  * executeCmd - execute command
  *
- * @params: parameters
- * Return: 0
+ * @params: parameters of command
+ * Return: 0 on success
  */
 
 int executeCmd(char **params)
