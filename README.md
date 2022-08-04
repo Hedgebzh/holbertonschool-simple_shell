@@ -4,8 +4,6 @@ C - Simple Shell
 
 For this project we made our own simple shell (linux command line interpreter).
 
-![68747470733a2f2f692e696d6775722e636f6d2f536a71495573372e706e67](https://user-images.githubusercontent.com/105505927/178279750-67811154-48ec-4467-9dc4-e89813768989.png)
-
 ## Requirements
 
 * Compilation command: `gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh`
@@ -19,6 +17,8 @@ For this project we made our own simple shell (linux command line interpreter).
 * All your header files should be include guarded
 * Use system calls only when you need to
 
+## Simple Shell
+> The shell is the Linux command line interpreter. It provides an interface between the user and the kernel and executes programs called commands. For example, if a user enters "ls" then the shell executes the ls command. The shell can also execute other programs such as applications, scripts, and user programs (e.g., written in c or the shell programming language).
 
 ### Synopsis
 
